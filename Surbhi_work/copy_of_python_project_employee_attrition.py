@@ -114,62 +114,33 @@ sns.heatmap(df.corr(method="kendall"), annot=True, fmt=".3f", ax=ax);
 #-1 is perfectly negative Correlation
 #1 is perfect positive correlation
 
-df_corr = df.corr(method='pearson')
-df_corr
 
-df.Department.unique()
 # is used to retrieve the unique values of the department column
 
 #Query: Get the maximum years at the company for any employee.
-max_years_at_company = df['YearsAtCompany'].max()
-print("Maximum Years at the Company: {}".format(max_years_at_company))
+
 
 #Find the department with the highest average monthly income among employees with more than 5 years of experience at the company.
-df.query("YearsAtCompany > 5").groupby('Department')['MonthlyIncome'].mean().idxmax()
 
 #print(cars.query('Year >= 2016 & Make == "Ford"').shape)
 
-df.query("Age > 40 & Department =='Sales'")
 #contains the row for the employees who are in the 'Sales' department and has an age greater than 40.
 
 #Hypothesis 1:Employees who live farther from work are more likely to experience attrition.
-sns.boxplot(data=df, x='Attrition', y='DistanceFromHome')
-plt.title('Distance from Home by Attrition')
-plt.xlabel('Attrition')
-plt.ylabel('Distance from Home')
-plt.show()
+
 
 #Conclusion: the data supports the hypothesis that employees who live farther from work are more likely to experience attrition. The findings emphasize the importance of considering the impact of commute distance when addressing attrition within the organization.
 
 #Hypothesis 2 :Employees with fewer years at the company are more likely to experience attrition.
-sns.boxplot(data=df, x='Attrition', y='YearsAtCompany')
-plt.title('Attrition by Years at Company')
-plt.show()
+
 # The analysis reveals that employees with fewer years at the company are more likely to experience attrition. The data indicates that employees with fewer years at the company are more prone to leave suggesting that employee tenure is associated with attrition.
 
 #Hypothesis 3: Employees at lower job levels are more likely to experience attrition.
-joblevel_attrition = df.groupby(['JobLevel', 'Attrition']).size().unstack()
-joblevel_attrition.plot(kind='bar', stacked=True)
-plt.title('Attrition by Job Level')
-plt.xlabel('Job Level')
-plt.ylabel('Count')
-plt.show()
+
 #Conclusion:The analysis suggests that employees at lower job levels such as JobLevel 1 are more likely to experience attrition. There is a noticeable relationship between job level and attrition, with lower job levels having higher attrition rates.
 
 #Hypotheis 4:Single employees are more likely to experience attrition compared to married or divorced employees.
-marital_attrition = df.groupby(['MaritalStatus', 'Attrition']).size().unstack()
-marital_attrition.plot(kind='bar', stacked=True)
-plt.title('Attrition by Marital Status')
-plt.xlabel('Marital Status')
-plt.ylabel('Count')
-plt.show()
+
 #Conclusion : The analysis indicates that single employees have a slightly higher attrition rate compared to married or divorced employees. Marital status may play a minor role in attrition.
 
 #Hypotheis 5:Employees in certain job roles are more likely to experience attrition.
-jobrole_attrition = df.groupby(['JobRole', 'Attrition']).size().unstack()
-jobrole_attrition.plot(kind='bar', stacked=True)
-plt.title('Attrition by Job Role')
-plt.xlabel('Job Role')
-plt.ylabel('Count')
-plt.show()
-#Conclusion : The analysis reveals that attrition rates vary significantly by job role. Some job roles such as Sales Representative and Laboratory Technician have higher attrition rates compared to others indicating a strong relationship between job role and attrition.
